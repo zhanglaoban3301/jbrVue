@@ -4,3 +4,6 @@
   </div>
 </template>
 
+<style lang="less">
+  @import './style/common.less';
+</style>

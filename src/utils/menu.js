@@ -3,18 +3,21 @@ import { getRequest } from "./api";
 export const initMenu = (router,store)=>{
     if(store.state.routes.length>0){
         return;
-    }else{
+    }
+  
         getRequest('/menu').then(data =>{
+            
             if(data){
                 //格式化之后的router
                 let fmtRoutes = formatRoutes(data);
+                console.log("fmtRoutes",fmtRoutes)
                 //添加到路由
                 router.addRoutes(fmtRoutes);
                 //存入到store中（vuex）
                 store.commit('initRoutes',fmtRoutes);
             }
         })
-    }
+    
 }
 
 
@@ -25,6 +28,7 @@ export const formatRoutes=(routes)=>{
             path,
             component,
             name,
+            url,
             iconCls,
             children,
         } = router;
@@ -35,18 +39,20 @@ export const formatRoutes=(routes)=>{
         let fmtRouter = {
             path : path,
             name: name,
+            url:url,
             iconCls : iconCls,
             children : children,
             component(resolve){
-                require(['../views/'+component+'.vue'],resolve);
-                if(component == "AddCarpet" || component == "CarpetInfo" ||component == "CarpetList" ||component == "SellInfo" ||component == "StockInfo" ){
+                if(url.startsWith('/home')){
+                    require(['../views/'+component+'.vue'],resolve);
+                }else if(url.startsWith('/carpetInfo')){
                     require(['../views/carpetInfo/'+component+'.vue'],resolve);
-                }else if(component == "CarpetShow" || component == "CarpetShowList"){
-                    require(['../views/CarpetShow/'+component+'.vue'],resolve);
-                }else if(component == "Profit" || component == "ProfitInfo"){
-                    require(['../views/Profit/'+component+'.vue'],resolve);
-                }else if(component == "System" || component == "AccountInfo"|| component == "Global"|| component == "Syslog"){
-                    require(['../views/System/'+component+'.vue'],resolve);
+                }else if(url.startsWith('/profit')){
+                    require(['../views/profit/'+component+'.vue'],resolve);
+                }else if(url.startsWith('/system')){
+                    require(['../views/system/'+component+'.vue'],resolve);
+                }else if(url.startsWith('/carpetShow')){
+                    require(['../views/carpetShow/'+component+'.vue'],resolve);
                 }
             }
         }

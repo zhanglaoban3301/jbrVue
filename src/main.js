@@ -18,14 +18,33 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 
 router.beforeEach((to,from,next) => {
-  initMenu(router,store);
-  next();
+  if(to.path == '/'){
+    next();
+}else{
+  if(window.sessionStorage.getItem('tokenStr')){
+    initMenu(router,store);
+    if(!window.sessionStorage.getItem('user')){
+      return getRequest('/login/getInfo').then(resp=>{
+        if(resp){
+          window.sessionStorage.setItem('user',JSON.stringify(resp));
+          next();
+        }
+      })
+    }
+    next();
+  }
+}
+  
+    
+  
+  
+ 
 })
 
 new Vue({
   render: h => h(App),
   router:router,
-  stores
+  store
 }).$mount('#app')
 
 
