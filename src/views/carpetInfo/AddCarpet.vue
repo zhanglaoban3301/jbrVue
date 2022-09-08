@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import {getRequest} from '../../utils/api'
+  import {postRequest} from '../../utils/api'
   export default {
     name:"AddCarpet",
     data() {
@@ -66,7 +66,8 @@
           date:'',
           price:0,
           pici:'',
-          address:''
+          address:'',
+          region:''
         },
         url:this.global.apiUrl,
         uploadUrl:"/upload"
@@ -75,24 +76,41 @@
     methods: {
       onSubmit() {
         console.log(this.form)
-      },
-      handleRemove(file, fileList) {
-        console.log("移除",file)
-       if(file.response.code=="200"){
-          const path = file.response.obj.source;
-         
-          getRequest('/deleteImg',path).then(data =>{
+        const LengthAndWidth = this.form.region.split("*");
+        const length = LengthAndWidth[0];
+        const width = LengthAndWidth[1];
+        let param = {
+          "name":this.form.name,
+          "type":this.form.type,
+          "price":this.form.price,
+          "length":length,
+          "width":width,
+          "img":this.form.address,
+          "batch":this.form.pici,
+          "entrytime":this.form.date
+        }
+         //param = JSON.stringify(param)
+         postRequest('/addcarpet',param).then(data =>{
             if(data){
               console.log(data)
             }
         })
+      },
+      handleRemove(file, fileList) {
+       if(file.response.code=="200"){
+          const path = {"path":file.response.obj.source}
+          getRequest('/deleteImg',path).then(data =>{
+            if(data){
+              this.form.address = '';
+            }
+        })
        } 
     },
-   
       handleSuccess(file) {
-        console.log("成功");  
         this.files = file.raw;
-        console.log(file);
+        if(file.code=="200"){
+          this.form.address = file.obj.source
+        }
       }
     }
   }
