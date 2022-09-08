@@ -51,7 +51,7 @@ export const formatRoutes=(routes)=>{
                     require(['../views/profit/'+component+'.vue'],resolve);
                 }else if(url.startsWith('/system')){
                     require(['../views/system/'+component+'.vue'],resolve);
-                }else if(url.startsWith('/carpetShow')){
+                }else if(url.startsWith('/carpetShow/CarpetShowList')){
                     require(['../views/carpetShow/'+component+'.vue'],resolve);
                 }
             }

@@ -7,7 +7,8 @@ import router from "@/router";
 import {postRequest,putRequest,getRequest,deleteRequest} from "./utils/api";
 import store from './store'
 import {initMenu} from './utils/menu';
-
+import global from '@/global/global';
+Vue.prototype.global = global
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(VueRouter);
