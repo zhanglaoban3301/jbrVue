@@ -176,6 +176,19 @@
          console.log(this.type)
          console.log(this.batch)
          console.log(this.date)
+
+         let param = {
+            name:this.name,
+            type:this.type,
+            batch:this.batch,
+            date:this.date
+         }
+         getRequest('/searchcarpet',param).then(data =>{
+            if(data && data.code =="200"){
+                this.total = data.obj.total
+                this.tableData = data.obj.data
+            }
+        })
       },
       clearParam(){
         this.name = '';
