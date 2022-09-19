@@ -109,7 +109,7 @@
 </template>
 
 <script>
-  import {getRequest} from '../../utils/api';
+  import {getRequest,postRequest} from '../../utils/api';
   import { formatDate } from "../../utils/utils.js"; //转换日期格式
   export default {
     name:"CarpetList",
@@ -172,18 +172,16 @@
         })
       },
       getCarpetList(){
-         console.log(this.name)
-         console.log(this.type)
-         console.log(this.batch)
-         console.log(this.date)
-
+       
          let param = {
-            name:this.name,
-            type:this.type,
-            batch:this.batch,
-            date:this.date
+            name:this.name==''?null:this.name,
+            type:this.type==''?null:this.type,
+            batch:this.batch==''?null:this.batch,
+            entrytime:this.date==''?null:this.date
          }
-         getRequest('/searchcarpet',param).then(data =>{
+         console.log("param",param)
+         postRequest('/searchcarpet',param).then(data =>{
+            console.log("data",data)
             if(data && data.code =="200"){
                 this.total = data.obj.total
                 this.tableData = data.obj.data
