@@ -36,7 +36,7 @@ export const initBatch = (store)=>{
         "year":year
     }
     getRequest('/getbatch',param).then(data =>{ 
-        console.log("批次",data)
+       
         if(data){
             //存入到store中（vuex）
             store.commit('initBatchList',data);

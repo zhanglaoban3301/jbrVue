@@ -28,8 +28,8 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="批次">
-        <el-select v-model="form.pici" placeholder="请选择批次" size="medium">
-          <el-option label="第一批次" value="第一批次"></el-option>
+        <el-select v-model="form.pici" placeholder="请选择批次" size="medium" @change="change">
+          <el-option v-for="(item,index) in batchList" :key="index" :label="item.name" :value="item.name"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="上传图片">
@@ -61,6 +61,7 @@
     name:"AddCarpet",
     data() {
       return {
+        batchList:this.$store.state.batchs,
         form: {
           name: '',
           type: '',
