@@ -32,7 +32,7 @@
                 </el-aside>
             </el-col>
         </el-row>
-        <el-main>
+        <el-main class="mainview">
             <router-view></router-view>
         </el-main>
     </el-container>
@@ -85,6 +85,10 @@ export default {
     width: 48px;
     height: 48px;
     border-radius: 24px;
+   }
+   .el-row{
+    width: 200px ;
+    height: 100%;
    }
    .el-menu{
     position: fixed;

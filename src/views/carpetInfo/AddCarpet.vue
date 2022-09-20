@@ -92,9 +92,19 @@
          //param = JSON.stringify(param)
          postRequest('/addcarpet',param).then(data =>{
             if(data){
-              console.log(data)
+              if(data.code=="200"){
+                 console.log("zouzhege",this.$refs)
+                 this.form.name=''
+                 this.form.type=''
+                 this.form.price=0
+                 this.form.date=''
+                 this.form.region=''
+                 this.form.address=''
+                 this.form.pici=''
+              }
             }
         })
+      
       },
       handleRemove(file, fileList) {
        if(file.response.code=="200"){
