@@ -38,7 +38,7 @@
           :action="url+uploadUrl"
           :on-success="handleSuccess"
           :on-remove="handleRemove"
-        
+          ref="upload"
          
           multiple>
           <i class="el-icon-upload"></i>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-  import {postRequest} from '../../utils/api'
+  import {postRequest,} from '../../utils/api'
   export default {
     name:"AddCarpet",
     data() {
@@ -92,6 +92,7 @@
          //param = JSON.stringify(param)
          postRequest('/addcarpet',param).then(data =>{
             if(data){
+<<<<<<< HEAD
               if(data.code=="200"){
                  console.log("zouzhege",this.$refs)
                  this.form.name=''
@@ -102,6 +103,18 @@
                  this.form.address=''
                  this.form.pici=''
               }
+=======
+              if(data.code == "200"){
+                this.form.name = ''
+                this.form.type = ''
+                this.form.date = ''
+                this.form.price = ''
+                this.form.pici = ''
+                this.form.address = ''
+                this.form.region = ''
+              }
+               this.$refs.upload.clearFiles();
+>>>>>>> 00953eda05f01aa99819b0f94dde5ef653e7c287
             }
         })
       

@@ -5,7 +5,7 @@
         <div class="title">金博尔</div>
         <el-dropdown class="userInfo" style="float:right">
             <span class="el-dropdown-link" >
-                {{user.username}}<i><img src="../assets/8.jpg"></i>
+                {{user.username}}<i><img :src="imgurl"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>个人中心</el-dropdown-item>
@@ -46,6 +46,7 @@ export default {
     name:"Home",
     data(){
         return{
+            imgurl:'/retimg?path=D://img/2.jpg',
             user:JSON.parse(window.sessionStorage.getItem('user')) 
         }
     },
