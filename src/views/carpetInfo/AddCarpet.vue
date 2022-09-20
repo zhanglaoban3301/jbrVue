@@ -8,7 +8,7 @@
         <el-input v-model="form.type" size="medium" style="width:200px"> </el-input>
       </el-form-item>
       <el-form-item label="尺寸">
-        <el-select v-model="form.region" placeholder="请选择尺寸">
+        <el-select v-model="form.region" placeholder="请选择尺寸" size="medium">
           <el-option label="1600*2300" value="1600*2300"></el-option>
           <el-option label="2000*2900" value="2000*2900"></el-option>
           <el-option label="2400*3400" value="2400*3400"></el-option>
@@ -20,6 +20,7 @@
       </el-form-item>
       <el-form-item label="时间">
         <el-date-picker
+          size="medium"
           v-model="form.date"
           type="date"
           placeholder="选择日期"
@@ -27,7 +28,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item label="批次">
-        <el-select v-model="form.pici" placeholder="请选择批次">
+        <el-select v-model="form.pici" placeholder="请选择批次" size="medium">
           <el-option label="第一批次" value="第一批次"></el-option>
         </el-select>
       </el-form-item>
@@ -75,7 +76,7 @@
     },
     methods: {
       onSubmit() {
-        console.log(this.form)
+        
         const LengthAndWidth = this.form.region.split("*");
         const length = LengthAndWidth[0];
         const width = LengthAndWidth[1];
@@ -92,9 +93,8 @@
          //param = JSON.stringify(param)
          postRequest('/addcarpet',param).then(data =>{
             if(data){
-<<<<<<< HEAD
+
               if(data.code=="200"){
-                 console.log("zouzhege",this.$refs)
                  this.form.name=''
                  this.form.type=''
                  this.form.price=0
@@ -103,18 +103,10 @@
                  this.form.address=''
                  this.form.pici=''
               }
-=======
-              if(data.code == "200"){
-                this.form.name = ''
-                this.form.type = ''
-                this.form.date = ''
-                this.form.price = ''
-                this.form.pici = ''
-                this.form.address = ''
-                this.form.region = ''
-              }
+
+            
                this.$refs.upload.clearFiles();
->>>>>>> 00953eda05f01aa99819b0f94dde5ef653e7c287
+
             }
         })
       

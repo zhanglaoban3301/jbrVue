@@ -6,8 +6,10 @@ import VueRouter  from 'vue-router';
 import router from "@/router";
 import {postRequest,putRequest,getRequest,deleteRequest} from "./utils/api";
 import store from './store'
-import {initMenu} from './utils/menu';
+import {initMenu,initGlobal,initBatch} from './utils/menu';
 import global from '@/global/global';
+
+
 Vue.prototype.global = global
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -17,13 +19,15 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
-
+Vue.config.silent = true;
 router.beforeEach((to,from,next) => {
   if(to.path == '/'){
     next();
 }else{
   if(window.sessionStorage.getItem('tokenStr')){
     initMenu(router,store);
+    initGlobal(store);
+    initBatch(store);
     if(!window.sessionStorage.getItem('user')){
       return getRequest('/login/getInfo').then(resp=>{
         if(resp){

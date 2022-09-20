@@ -5,7 +5,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    routes:[]
+    routes:[],
+    global:[],
+    batchs:[]
   },
   getters: {
   },
@@ -13,6 +15,12 @@ export default new Vuex.Store({
   mutations: {
     initRoutes(state,data){
       state.routes = data;
+    },
+    initGlobalList(state,data){
+      state.global = data;
+    },
+    initBatchList(state,data){
+      state.batchs = data;
     }
   },
   //异步执行

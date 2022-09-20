@@ -1,67 +1,5 @@
 <template>
-  <div>
-<<<<<<< HEAD
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-    height="580">
-    <el-table-column
-      fixed
-      prop="date"
-      label="进货日期"
-      width="150">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="名称"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="province"
-      label="型号"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="city"
-      label="尺寸"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="价格"
-      width="300">
-    </el-table-column>
-    <el-table-column
-      prop="zip"
-      label="批次"
-      width="120">
-    </el-table-column>
-    <el-table-column
-      prop="zip"
-      label="图片"
-      width="120">
-    </el-table-column>
-    <el-table-column label="操作">
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <div class="block">
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="1000">
-    </el-pagination>
-  </div>
-</div>
-=======
+  <div class="carpetinfo">
     <el-input
       placeholder="请输入名称"
       v-model="name"
@@ -93,7 +31,48 @@
     <el-button type="primary" icon="el-icon-search" @click="getCarpetList">搜索</el-button>
     <el-button type="primary" icon="el-icon-delete" @click="clearParam">重置</el-button>
 
-
+    <el-dialog title="地毯信息" :visible.sync="dialogFormVisible" center="true" width="30%">
+      <div class="forminfo">
+      <el-form :model="form">
+        <el-form-item label="名称">
+        <el-input v-model="form.name" size="medium" style="width:200px"> </el-input>
+      </el-form-item>
+      <el-form-item label="型号">
+        <el-input v-model="form.type" size="medium" style="width:200px"> </el-input>
+      </el-form-item>
+      <el-form-item label="尺寸">
+        <el-select v-model="form.region" placeholder="请选择尺寸" size="medium" @change="change">
+          <el-option label="1600*2300" value="1600*2300"></el-option>
+          <el-option label="2000*2900" value="2000*2900"></el-option>
+          <el-option label="2400*3400" value="2400*3400"></el-option>
+          <el-option label="3000*4000" value="3000*4000"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="价格">
+        <el-input v-model="form.price" size="medium" type="number" style="width:200px"> </el-input>
+      </el-form-item>
+      <el-form-item label="时间">
+        <el-date-picker
+          @input="$forceUpdate()" 
+          size="medium"
+          v-model="form.date"
+          type="date"
+          placeholder="选择日期"
+          format="yyyy 年 MM 月 dd 日">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="批次">
+        <el-select v-model="form.pici" placeholder="请选择批次" size="medium" @change="change">
+          <el-option v-for="(item,index) in batchList" :key="index" :label="item.name" :value="item.name"></el-option>
+        </el-select>
+      </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogput">确 定</el-button>
+      </div>
+    </div>
+    </el-dialog>
     <el-table
       :data="tableData"
       class="tablestyle">
@@ -134,6 +113,13 @@
         </template>
       </el-table-column>
       <el-table-column
+        label="价格"
+        width="100">
+        <template slot-scope="scope">
+           <span style="margin-left: 10px">{{ scope.row.price }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="尺寸"
         width="130">
         <template slot-scope="scope">
@@ -168,7 +154,7 @@
       @current-change="getPage">
     </el-pagination>
   </div>
->>>>>>> 00953eda05f01aa99819b0f94dde5ef653e7c287
+
 </template>
 
 <script>
@@ -177,95 +163,6 @@
   export default {
     data() {
       return {
-<<<<<<< HEAD
-        tableData: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',7
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333
-        }]
-      }
-    }
-  }
-</script>
-<style scoped>
-.block{
-  margin-top: 8px;
-  float:right;
-}
-=======
           ImgUrl:'/retimg?path=',
           pickerOptions: {
           disabledDate(time) {
@@ -292,26 +189,74 @@
             }
           }]
         },
+        batchList:this.$store.state.batchs,
+        dialogFormVisible:false,
         page:1,
         name: '',
         type:'',
         batch:'',
         date:'',
         total:0,
-        tableData: []
+        tableData: [],
+        formLabelWidth:"10px",
+        form: {
+          id:'',
+          name: '',
+          type: '',
+          date:'',
+          price:0,
+          pici:'',
+          region:''
+        },
       }
     },
     methods: {
+      change(){
+	        this.$forceUpdate()   //其作用就是强制性刷新了一次
+      },
+      dialogput(){
+        const LengthAndWidth = this.form.region.split("*");
+        const length = LengthAndWidth[0];
+        const width = LengthAndWidth[1];
+        let param = {
+          "name":this.form.name,
+          "type":this.form.type,
+          "price":this.form.price,
+          "length":length,
+          "width":width,
+          "batch":this.form.pici,
+          "entrytime":this.form.date,
+          "id":this.form.id
+        }
+        postRequest('/updatecarpet',param).then(data =>{
+          console.log(data)
+            if(data){
+               var page = {"page":this.page}
+               getRequest('/getcarpet',page).then(data =>{
+              if(data && data.code =="200"){
+                this.total = data.obj.total
+                this.tableData = data.obj.data
+              }
+              })
+            }
+        })
+        this.dialogFormVisible = false
+        
+      },
       handleEdit(index, row) {
-        console.log(index, row);
+        console.log("填充.....")
+        //填充表单属性
+        this.form = this.tableData[index]
+        this.form.pici = this.tableData[index].batch
+        this.form.date = this.tableData[index].entrytime
+        this.form.region = this.tableData[index].width+"*"+this.tableData[index].length
+        this.dialogFormVisible = true
       },
       handleDelete(index, row) {
         let id =  {"id":row.id};
         getRequest('/deletecarpet',id).then(data =>{
             if(data && data.code =="200"){
-             
               var page = {"page":this.page}
-              
               getRequest('/getcarpet',page).then(data =>{
                 console.log(data.obj.data)
                   if(data && data.code =="200"){
@@ -323,16 +268,14 @@
         })
       },
       getCarpetList(){
-       
          let param = {
             name:this.name==''?null:this.name,
             type:this.type==''?null:this.type,
             batch:this.batch==''?null:this.batch,
             entrytime:this.date==''?null:this.date
          }
-         console.log("param",param)
+         
          postRequest('/searchcarpet',param).then(data =>{
-            console.log("data",data)
             if(data && data.code =="200"){
                 this.total = data.obj.total
                 this.tableData = data.obj.data
@@ -344,13 +287,18 @@
         this.type = '';
         this.batch = '';
         this.date = ''
+        var page = {"page":this.page}
+        getRequest('/getcarpet',page).then(data =>{
+            if(data && data.code =="200"){
+               this.total = data.obj.total
+               this.tableData = data.obj.data
+            }
+        })
       },
       getPage(page){
         this.page = page;
         var page = {"page":this.page}
-        
         getRequest('/getcarpet',page).then(data =>{
-          console.log(data.obj.data)
             if(data && data.code =="200"){
                this.total = data.obj.total
                this.tableData = data.obj.data
@@ -360,7 +308,7 @@
   
     },
      mounted(){
-      console.log("执行查询",this.page)
+      console.log("2122",this.$store.state.batchs)
       var page = {"page":this.page}
    
       getRequest('/getcarpet',page).then(data =>{
@@ -369,6 +317,7 @@
                this.total = data.obj.total
             }
         })
+
      },
       filters: {
           formatDate(time) {
@@ -379,6 +328,7 @@
   }
 </script>
 <style scoped>
+
 .inputValue{
   width: 150px;
   margin-right: 10px;
@@ -400,5 +350,7 @@
     height: 28px;
     border-radius: 24px;
    }
->>>>>>> 00953eda05f01aa99819b0f94dde5ef653e7c287
+.forminfo{
+  margin-left: 60px;
+}
 </style>

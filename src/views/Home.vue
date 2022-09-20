@@ -46,7 +46,7 @@ export default {
     name:"Home",
     data(){
         return{
-            imgurl:'/retimg?path=D://img/2.jpg',
+            imgurl:'/retimg?path=D://img/im_01.jpg',
             user:JSON.parse(window.sessionStorage.getItem('user')) 
         }
     },
@@ -98,6 +98,10 @@ export default {
     height: 100%;
     //background-color:#ffd04b;
     
+   }
+   .mainview {
+    margin-top: 5px;
+    margin-left: 25px;
    }
    
 </style>

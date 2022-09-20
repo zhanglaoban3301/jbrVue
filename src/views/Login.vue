@@ -64,7 +64,8 @@ export default {
                 const tokenStr = resp.obj.tokenHead+resp.obj.token;
                 window.sessionStorage.setItem('tokenStr',tokenStr);
                 //跳转
-                this.$router.replace('/home')
+               
+                this.$router.replace({path:'/home'}).catch(err => { console.log(err) })
               }
             })
           }else{

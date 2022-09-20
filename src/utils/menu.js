@@ -1,16 +1,16 @@
 import { getRequest } from "./api";
 
 export const initMenu = (router,store)=>{
+    console.log("获取routers")
     if(store.state.routes.length>0){
         return;
     }
-  
         getRequest('/menu').then(data =>{
             
             if(data){
                 //格式化之后的router
                 let fmtRoutes = formatRoutes(data);
-                console.log("fmtRoutes",fmtRoutes)
+                
                 //添加到路由
                 router.addRoutes(fmtRoutes);
                 //存入到store中（vuex）
@@ -19,8 +19,31 @@ export const initMenu = (router,store)=>{
         })
     
 }
+export const initGlobal = (store)=>{
+  
+        getRequest('/getglobal').then(data =>{ 
+           
+            if(data){
+                //存入到store中（vuex）
+                store.commit('initGlobalList',data);
+            }
+        })
+    
+}
+export const initBatch = (store)=>{
+    var date = new Date(); var year = date.getFullYear();
+    let param = {
+        "year":year
+    }
+    getRequest('/getbatch',param).then(data =>{ 
+        console.log("批次",data)
+        if(data){
+            //存入到store中（vuex）
+            store.commit('initBatchList',data);
+        }
+    })
 
-
+}
 export const formatRoutes=(routes)=>{
     let fmtRoutes = [];
     routes.forEach(router=>{
