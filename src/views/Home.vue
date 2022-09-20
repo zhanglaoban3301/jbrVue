@@ -46,7 +46,7 @@ export default {
     name:"Home",
     data(){
         return{
-            imgurl:'/retimg?path=D://img/im_01.jpg',
+            imgurl:'/retimg?path=D://img/1.jpg',
             user:JSON.parse(window.sessionStorage.getItem('user')) 
         }
     },

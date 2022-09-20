@@ -14,12 +14,9 @@
       clearable>
     </el-input>
     
-    <el-input
-      placeholder="请输入批次"
-      v-model="batch"
-      class="inputValue"
-      clearable>
-    </el-input>
+   <el-select class="inputValue" v-model="batch" placeholder="请选择批次" size="medium" @change="change">
+          <el-option v-for="(item,index) in batchList" :key="index" :label="item.name" :value="item.name"></el-option>
+        </el-select>
     <el-date-picker
       v-model="date"
       align="right"
@@ -138,6 +135,7 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
+            type="success"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button
             size="mini"
@@ -229,7 +227,7 @@
           "id":this.form.id
         }
         postRequest('/updatecarpet',param).then(data =>{
-          console.log(data)
+      
             if(data){
                var page = {"page":this.page}
                getRequest('/getcarpet',page).then(data =>{
@@ -244,7 +242,7 @@
         
       },
       handleEdit(index, row) {
-        console.log("填充.....")
+      
         //填充表单属性
         this.form = this.tableData[index]
         this.form.pici = this.tableData[index].batch
@@ -308,7 +306,7 @@
   
     },
      mounted(){
-      console.log("2122",this.$store.state.batchs)
+      
       var page = {"page":this.page}
    
       getRequest('/getcarpet',page).then(data =>{
