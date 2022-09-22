@@ -28,40 +28,11 @@
     <el-button type="primary" icon="el-icon-search" @click="getCarpet">搜索</el-button>
     <el-button type="primary" icon="el-icon-delete" @click="clearParam">重置</el-button>
 
-    <el-dialog title="地毯信息" :visible.sync="dialogFormVisible" center="true" width="30%">
+    <el-dialog title="金额录入" :visible.sync="dialogFormVisible" center="true" width="20%">
       <div class="forminfo">
       <el-form :model="form">
-        <el-form-item label="名称">
-        <el-input v-model="form.name" size="medium" style="width:200px"> </el-input>
-      </el-form-item>
-      <el-form-item label="型号">
-        <el-input v-model="form.type" size="medium" style="width:200px"> </el-input>
-      </el-form-item>
-      <el-form-item label="尺寸">
-        <el-select v-model="form.region" placeholder="请选择尺寸" size="medium" @change="change">
-          <el-option label="1600*2300" value="1600*2300"></el-option>
-          <el-option label="2000*2900" value="2000*2900"></el-option>
-          <el-option label="2400*3400" value="2400*3400"></el-option>
-          <el-option label="3000*4000" value="3000*4000"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="价格">
-        <el-input v-model="form.price" size="medium" type="number" style="width:200px"> </el-input>
-      </el-form-item>
-      <el-form-item label="时间">
-        <el-date-picker
-          @input="$forceUpdate()" 
-          size="medium"
-          v-model="form.date"
-          type="date"
-          placeholder="选择日期"
-          format="yyyy 年 MM 月 dd 日">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="批次">
-        <el-select v-model="form.pici" placeholder="请选择批次" size="medium" @change="change">
-          <el-option v-for="(item,index) in batchList" :key="index" :label="item.name" :value="item.name"></el-option>
-        </el-select>
+        <el-form-item label="实际金额">
+        <el-input v-model="form.money" size="medium" style="width:120px" type="number"> </el-input>
       </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -143,11 +114,7 @@
           <el-button
             size="mini"
             type="success"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            @click="handleSc(scope.$index, scope.row)">售出</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -197,6 +164,8 @@
         batchList:this.$store.state.batchs,
         dialogFormVisible:false,
         page:1,
+        argsid:null,
+        argsbatch:null,
         param:{
           id:null,
           name: null,
@@ -205,19 +174,14 @@
           price:0,
           batch:null,
           region:null,
-          page:1
+          page:1,
+          state:'0'
         },
         total:0,
         tableData: [],
         formLabelWidth:"10px",
         form: {
-          id:'',
-          name: '',
-          type: '',
-          date:'',
-          price:0,
-          pici:'',
-          region:''
+          money:0
         },
       }
     },
@@ -241,22 +205,9 @@
 	        this.$forceUpdate()   //其作用就是强制性刷新了一次
       },
       dialogput(){
-        const LengthAndWidth = this.form.region.split("*");
-        const length = LengthAndWidth[0];
-        const width = LengthAndWidth[1];
-        let param = {
-          "name":this.form.name,
-          "type":this.form.type,
-          "price":this.form.price,
-          "length":length,
-          "width":width,
-          "batch":this.form.pici,
-          "entrytime":this.form.date,
-          "id":this.form.id
-        }
-        postRequest('/updatecarpet',param).then(data =>{
-      
-            if(data){
+        let param = {"id":this.argsid,"batch":this.argsbatch,money:this.form.money}
+        getRequest('/sellcarpet',param).then(data =>{
+            if(data && data.code =="200"){
               this.getCarpet();
             }
         })
@@ -264,13 +215,11 @@
         
       },
 
-      handleEdit(index, row) {
-        //填充表单属性
-        this.form = this.tableData[index]
-        this.form.pici = this.tableData[index].batch
-        this.form.date = this.tableData[index].entrytime
-        this.form.region = this.tableData[index].width+"*"+this.tableData[index].length
-        this.dialogFormVisible = true
+      handleSc(index, row) {
+     
+         this.dialogFormVisible=true
+         this.argsid = row.id
+         this.argsbatch = row.batch
       },
 
       handleDelete(index, row) {
@@ -334,6 +283,6 @@
     border-radius: 24px;
    }
 .forminfo{
-  margin-left: 60px;
+  margin-left: 6px;
 }
 </style>

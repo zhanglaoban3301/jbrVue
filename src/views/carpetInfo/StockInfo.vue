@@ -62,7 +62,13 @@
            <span style="margin-left: 10px">{{ scope.row.batch }}</span>
         </template>
       </el-table-column>
-     
+      <el-table-column
+        label="状态"
+        width="90">
+        <template slot-scope="scope">
+           <span style="margin-left: 10px">{{ scope.row.state=='0'?'在售':'已售' }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       class="pagestyle"
@@ -129,7 +135,7 @@
 </template>
 
 <script>
-import {getRequest} from '../../utils/api';
+import {getRequest,postRequest} from '../../utils/api';
 import { formatDate } from "../../utils/utils.js"; //转换日期格式
 export default {
     name:"StockInfo",
@@ -155,7 +161,7 @@ export default {
           "page":this.page,
           "batch":batch
         }
-        getRequest('/getcarpetbatch',param).then(data =>{
+        postRequest('/getcarpet',param).then(data =>{
             if(data && data.code =="200"){
                this.tableData1 = data.obj.data
                this.tabletotal = data.obj.total

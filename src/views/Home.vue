@@ -1,5 +1,5 @@
 <template>
-    <div class="manage_page fillcontain">
+    <div class="manage_page fillcontain" >
     <el-container>
     <el-header class="HomeHeader">
         <div class="title">金博尔</div>
@@ -17,7 +17,7 @@
         <el-row >
 	  		<el-col :span="5" >
                 <el-aside >
-                    <el-menu :default-active="defaultActive"   background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"   router>
+                    <el-menu :default-active="defaultActive"    background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"   router>
                         <el-submenu :index="item.path"  v-for="(item,index) in routes" :key="index" v-if="!item.hidden">
                                 <template slot="title"><i class="el-icon-location"></i>
                                     <span>{{item.name}}</span>
@@ -46,7 +46,7 @@ export default {
     name:"Home",
     data(){
         return{
-            imgurl:'/retimg?path=D://img/1.jpg',
+            imgurl:'/retimg?path=D://img/001.jpg',
             user:JSON.parse(window.sessionStorage.getItem('user')) 
         }
     },
@@ -102,6 +102,19 @@ export default {
    .mainview {
     margin-top: 5px;
     margin-left: 25px;
+    height: 100%;
+    
    }
-   
+   .manage_page{
+    overflow-y: scroll;
+   }
+
+   .el-table--scrollable-x .el-table__body-wrapper {
+    overflow: auto;
+}
+//Tabled单元格对齐
+/deep/ .gutter {
+  width: 22px !important;
+  display: inline-block !important;
+}
 </style>
