@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <el-dialog title="地毯信息" :visible.sync="dialogFormVisible" center="true" width="100%">
+  <div class="stockinfo">
+    <div class="stockinfocontent">
+      <el-dialog title="地毯信息" :visible.sync="dialogFormVisible" center="true" width="100%">
       <div class="forminfo">
       <el-table
       :data="tableData1"
@@ -113,7 +114,8 @@
            <span style="margin-left: 10px">{{ scope.row.count  }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作"  width="130">
+        
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -130,7 +132,8 @@
       layout="prev, pager, next"
       :total="total"
       @current-change="getPage">
-    </el-pagination>
+    </el-pagination> 
+  </div>
   </div>
 </template>
 
@@ -141,7 +144,7 @@ export default {
     name:"StockInfo",
     data(){
       return{
-        ImgUrl:'/retimg?path=',
+        ImgUrl:this.global.apiUrl+'/retimg?path=',
         page:1,
         pagetable:1,
         total:0,
@@ -185,7 +188,8 @@ export default {
           "page":page,
           "batch":this.batch
         }
-        getRequest('/getcarpetbatch',param).then(data =>{
+        postRequest('/getcarpet',param).then(data =>{
+          console.log("param",param)
             if(data && data.code =="200"){
                this.tabletotal = data.obj.total
                this.tableData1 = data.obj.data
@@ -212,12 +216,27 @@ export default {
 </script>
 
 <style scoped>
-.tablestyle{
+
+.stockinfo{
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  margin-top: 25px;
+  
+  
+}
+.stockinfocontent{
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-left: 70px;
+  width: 70%;
+  border:1px solid #000;
+  box-shadow: 0px -5px 10px 0px #2279ee, 
+			-6px 0px 6px 0px #2279ee, 
+			6px 0px 6px 0px #2279ee, 
+			0px 5px 19px 0px #2279ee;
 }
 .pagestyle{
-  margin-top: 15px ;
+  padding-bottom: 30px;
+  padding-top: 20px;
 }
 </style>

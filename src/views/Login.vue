@@ -36,10 +36,10 @@ export default {
     components:{Particles},
     data(){
       return {
-        captchaUrl:'/captcha?time='+new Date(),
+        captchaUrl:this.global.apiUrl+'/captcha?time='+new Date(),
         loginForm:{
-          username:'admin',
-          password:'123456',
+          username:'',
+          password:'',
           code:''
         },
         loading:false,
@@ -75,9 +75,10 @@ export default {
         })
       },
       updateCaptcha(){
-        this.captchaUrl = '/captcha?time='+new Date()
+        this.captchaUrl = this.global.apiUrl+'/captcha?time='+new Date()
       }
-    }
+    },
+   
 }
 </script>
 

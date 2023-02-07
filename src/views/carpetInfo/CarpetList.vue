@@ -168,7 +168,7 @@
   export default {
     data() {
       return {
-          ImgUrl:'/retimg?path=',
+          ImgUrl:this.global.apiUrl+'/retimg?path=',
           pickerOptions: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -205,7 +205,8 @@
           price:0,
           batch:null,
           region:null,
-          page:1
+          page:1,
+          state:null
         },
         total:0,
         tableData: [],
@@ -225,11 +226,25 @@
       //获取数据
       getCarpet(){
         this.param.page = this.page;
+        if(this.param.name == ""){
+          this.param.name = null;
+        }
+       
+        if(this.param.type == ""){
+         
+          this.param.type = null;
+        }
+        if(this.param.batch == ""){
+          this.param.batch = null;
+        }
+        if(this.param.entrytime == ""){
+          this.param.entrytime = null;
+        }
         var param = this.param
-        console.log("param",this.param)
+        //console.log("param",this.param)
         postRequest('/getcarpet',param).then(data =>{
         if(data && data.code =="200"){
-          console.log(data)
+         
             this.total = data.obj.total
             this.tableData = data.obj.data
           }

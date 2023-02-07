@@ -1,5 +1,6 @@
 <template>
   <div class="addcarpet"> 
+    <div class="content">
       <el-form ref="form" size="mini" :model="form" label-width="80px">
       <el-form-item label="名称">
         <el-input v-model="form.name" size="medium" style="width:200px"> </el-input>
@@ -44,7 +45,7 @@
           multiple>
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过5MB</div>
         </el-upload>
       </el-form-item>
       <el-form-item>
@@ -52,6 +53,7 @@
         <el-button>取消</el-button>
       </el-form-item>
     </el-form>
+  </div>
   </div>
 </template>
 
@@ -123,6 +125,7 @@
        } 
     },
       handleSuccess(file) {
+      
         this.files = file.raw;
         if(file.code=="200"){
           this.form.address = file.obj.source
@@ -132,8 +135,25 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .addcarpet{
-  padding-top: 35px;
+ 
+}
+.content{
+  display: flex;
+  justify-content: center;
+}
+/deep/.el-form{
+  border:1px solid #000;
+  box-shadow: 0px -5px 10px 0px #2279ee, 
+			-6px 0px 6px 0px #2279ee, 
+			6px 0px 6px 0px #2279ee, 
+			0px 5px 19px 0px #2279ee;
+  padding-top: 25px;
+  padding-right: 10px;
+}
+/deep/.el-upload-dragger{
+  padding-top: 10px;
+  height: 150px !important ;
 }
 </style>

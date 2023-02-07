@@ -1,23 +1,12 @@
 const { defineConfig } = require('@vue/cli-service')
 
-
-let proxyObj={}
-
-proxyObj['/']={
-  //websocket
-  ws:false,
-  target:'http://localhost:7777',
-  changeOrigin: true,
-  pathReWrite:{
-    '^/':'/'
-  }
-}
 module.exports = {
-
+  assetsDir: 'static',
+  parallel: false,
+  publicPath: './',
   devServer:{
     host:'localhost',
-    port:8080,
-    proxy:proxyObj
+    port:8080
   },
   transpileDependencies: true,
   lintOnSave:false

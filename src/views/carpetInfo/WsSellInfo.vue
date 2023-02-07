@@ -135,7 +135,8 @@
   export default {
     data() {
       return {
-          ImgUrl:'/retimg?path=',
+          name:"WsSellInfo",
+          ImgUrl:this.global.apiUrl+'/retimg?path=',
           pickerOptions: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -166,6 +167,7 @@
         page:1,
         argsid:null,
         argsbatch:null,
+       
         param:{
           id:null,
           name: null,
@@ -185,10 +187,26 @@
         },
       }
     },
+   
     methods: {
       //获取数据
       getCarpet(){
+      
         this.param.page = this.page;
+        if(this.param.name == ""){
+          this.param.name = null;
+        }
+       
+        if(this.param.type == ""){
+          
+          this.param.type = null;
+        }
+        if(this.param.batch == ""){
+          this.param.batch = null;
+        }
+        if(this.param.entrytime == ""){
+          this.param.entrytime = null;
+        }
         var param = this.param
         console.log("param",this.param)
         postRequest('/getcarpet',param).then(data =>{
@@ -205,10 +223,11 @@
 	        this.$forceUpdate()   //其作用就是强制性刷新了一次
       },
       dialogput(){
-        let param = {"id":this.argsid,"batch":this.argsbatch,money:this.form.money}
+        let param = {"id":this.argsid,"batch":this.argsbatch,"money":this.form.money}
         getRequest('/sellcarpet',param).then(data =>{
             if(data && data.code =="200"){
               this.getCarpet();
+              this.form.money = 0;
             }
         })
         this.dialogFormVisible = false
@@ -249,6 +268,7 @@
   
     },
      mounted(){
+    
         this.getCarpet()
      },
       filters: {

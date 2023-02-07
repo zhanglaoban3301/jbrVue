@@ -1,7 +1,7 @@
 import { getRequest } from "./api";
 
 export const initMenu = (router,store)=>{
-    console.log("获取routers")
+    
     if(store.state.routes.length>0){
         return;
     }

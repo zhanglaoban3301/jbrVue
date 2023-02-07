@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
-import Home from '../views/Home'
+import Home from '../views/Home.vue';
+import AddCarpet from '../views/carpetInfo/AddCarpet.vue';
+import SellInfo from '../views/carpetInfo/SellInfo.vue';
+import WsSellInfo from '../views/carpetInfo/WsSellInfo.vue';
+import YsSellInfo from '../views/carpetInfo/YsSellInfo.vue';
+import Dp from '../views/Dp'
 
-import CarpetList from '../views/carpetInfo/CarpetList'
-import SellInfo from '../views/carpetInfo/SellInfo'
-import StockInfo from '../views/carpetInfo/StockInfo'
 
-import CarpetShowList from '../views/carpetShow/CarpetShowList'
-import ProfitInfo from '../views/profit/ProfitInfo'
-import AccountInfo from '../views/system/AccountInfo'
-import Global from '../views/system/Global'
 
 
 Vue.use(VueRouter)
@@ -41,7 +39,30 @@ const routes = [
     name: 'Login',
     component: Login,
     hidden:true
+  },
+  {
+    path: '/Dp',
+    name: 'Dp',
+    component: Dp
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    children:[
+      {
+        path: '/home/addCarpet',
+        name: 'AddCarpet',
+        component: AddCarpet,
+      },
+      {
+        path: '/home/sellInfo',
+        name: 'SellInfo',
+        component: SellInfo,
+      }
+    ]
   }
+ 
   
 ]
 

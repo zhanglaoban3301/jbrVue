@@ -8,8 +8,11 @@ import {postRequest,putRequest,getRequest,deleteRequest} from "./utils/api";
 import store from './store'
 import {initMenu,initGlobal,initBatch} from './utils/menu';
 import global from '@/global/global';
+import dataV from '@jiaminghi/data-view'
+import axios from 'axios';
+axios.defaults.withCredentials = true
 
-
+Vue.use(dataV)
 Vue.prototype.global = global
 Vue.config.productionTip = false
 Vue.use(ElementUI);
@@ -20,6 +23,8 @@ Vue.prototype.getRequest = getRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 Vue.config.silent = true;
+
+
 router.beforeEach((to,from,next) => {
   if(to.path == '/'){
     next();

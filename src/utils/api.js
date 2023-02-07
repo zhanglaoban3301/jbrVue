@@ -46,7 +46,7 @@ axios.interceptors.response.use(success=>{
     return;
 });
 
-let base = '';
+let base = "http://localhost:8080";
 
 
 export const postRequest = (url,params)=>{
@@ -59,6 +59,7 @@ export const postRequest = (url,params)=>{
 }
 
 export const putRequest = (url,params)=>{
+    console.log(`${base}${url}`)
     return axios({
         method:'put',
         url:`${base}${url}`,
@@ -66,7 +67,7 @@ export const putRequest = (url,params)=>{
     })
 }
 export const getRequest = (url,params)=>{
-   
+    console.log(`${base}${url}`)
     return axios({
         method:'get',
         url:`${base}${url}`,
