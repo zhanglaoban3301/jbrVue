@@ -13,7 +13,7 @@ body, div, span, header, footer, nav, section, aside, article, ul, dl, dt, dd, l
     }
 }
 
-/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+// /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
 ::-webkit-scrollbar  
 {  
     width: 0px;  
@@ -32,7 +32,8 @@ textarea { -webkit-appearance: none;}
 html,body{
     height: 100%;
     width: 100%;
-    // background-color: #F5F5F5;
+    overflow: auto !important;
+    //background-color: #F5F5F5;
 }
 
 .fillcontain{

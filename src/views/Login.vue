@@ -64,8 +64,10 @@ export default {
                 const tokenStr = resp.obj.tokenHead+resp.obj.token;
                 window.sessionStorage.setItem('tokenStr',tokenStr);
                 //跳转
-               
+                console.log("即将跳转.....")
+                console.log(this.$router)
                 this.$router.replace({path:'/home'}).catch(err => { console.log(err) })
+                console.log("跳转成功.....")
               }
             })
           }else{
@@ -82,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 .logincContainer{
   border-radius: 15px;
   background-clip: padding-box;

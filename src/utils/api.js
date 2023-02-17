@@ -46,8 +46,7 @@ axios.interceptors.response.use(success=>{
     return;
 });
 
-let base = "http://localhost:8080";
-
+let base = "http://47.92.66.254:8080";
 
 export const postRequest = (url,params)=>{
    
@@ -74,6 +73,8 @@ export const getRequest = (url,params)=>{
         params
     })
 }
+
+
 export const deleteRequest = (url,params)=>{
     return axios({
         method:'delete',

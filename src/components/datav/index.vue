@@ -21,7 +21,7 @@
               <scroll-board />
             </div>
 
-            <!-- <cards /> -->
+            <cards />
           </div>
         </div>
       </div>

@@ -28,28 +28,51 @@ Vue.config.silent = true;
 router.beforeEach((to,from,next) => {
   if(to.path == '/'){
     next();
-}else{
-  if(window.sessionStorage.getItem('tokenStr')){
-    initMenu(router,store);
-    initGlobal(store);
-    initBatch(store);
-    if(!window.sessionStorage.getItem('user')){
-      return getRequest('/login/getInfo').then(resp=>{
-        if(resp){
-          window.sessionStorage.setItem('user',JSON.stringify(resp));
-          next();
-        }
-      })
-    }
-    next();
-  }
-}
-  
+  }else{
     
-  
-  
- 
+    if(window.sessionStorage.getItem('tokenStr')){
+      
+      initMenu(router,store);
+      initGlobal(store);
+      initBatch(store);
+      console.log("即将获取用户信息")
+      if(!window.sessionStorage.getItem('user')){
+        console.log("获取用户信息")
+         getRequest('/login/getInfo').then(resp=>{
+          console.log("getInfo",resp)
+          if(resp){
+            window.sessionStorage.setItem('user',JSON.stringify(resp));
+            console.log("进入home...")
+            next();
+          }
+        })
+      }
+      
+      next();
+    }
+  }
 })
+
+async function getuser(){
+  console.log("getRequest 之前")
+  return await getRequest('/login/getInfo').then(resp=>{
+    if(resp){
+      console.log("resp",resp)
+      window.sessionStorage.setItem('user',JSON.stringify(resp));
+    }
+  })
+  console.log("getRequest 之后")
+}
+
+async function f(){
+  console.log("调用之前")
+  await getuser();
+  console.log("调用结束")
+}
+
+
+
+
 
 new Vue({
   render: h => h(App),

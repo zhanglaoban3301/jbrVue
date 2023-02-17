@@ -48,7 +48,7 @@ export default {
         title: '销售情况' ,
         time:item.time,
         total: {
-          number: [item.累计金额],
+          number: [item.该日金额],
           content: '{nt}',
           textAlign: 'right',
           style: {
@@ -74,7 +74,7 @@ export default {
               arcLineWidth: 13,
               radius: '80%',
               data: [
-                { name: '资金占比', value: item.占比 }
+                { name: '资金占比', value: item.资金占比 }
               ],
               axisLabel: {
                 show: false
@@ -115,6 +115,7 @@ export default {
   mounted () {
     const { createData } = this
     getRequest('/getSellInfoBetweenFive').then(data =>{
+      console.log("cardsdata",data)
       if(data){
         this.data = data;
       }
@@ -156,7 +157,7 @@ export default {
 
     .card-header-right {
       padding-right: 20px;
-      font-size: 40px;
+      font-size: 20px;
       color: #03d3ec;
     }
   }

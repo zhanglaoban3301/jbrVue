@@ -327,6 +327,22 @@
 </script>
 <style scoped>
 
+
+/deep/ .el-table--scrollable-x .el-table__body-wrapper {
+  overflow: auto;
+}
+/deep/ .gutter {
+  width: 22px !important;
+  display: inline-block !important;
+}
+/deep/ .el-table__fixed-right-patch {
+  width: 22px !important;
+}
+/deep/ .el-table__fixed-right {
+    top: 0;
+    left: auto;
+    right: 22px;
+}
 .inputValue{
   width: 150px;
   margin-right: 10px;
@@ -336,19 +352,20 @@
   margin-right: 15px;
 }
 .tablestyle{
-  width: 100%;
-  height: 100%;
+  
   margin-top: 25px;
+  height: 100vh;
 }
 .pagestyle{
   margin-top: 15px ;
 }
 .carpetimg{
-    width: 28px;
-    height: 28px;
+    width: 10px;
+    height: 10px;
     border-radius: 24px;
    }
 .forminfo{
   margin-left: 60px;
 }
+
 </style>

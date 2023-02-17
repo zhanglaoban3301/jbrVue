@@ -56,6 +56,7 @@ export default {
   mounted () {
     const { createData } = this
     getRequest('/getSellFbByMonth').then(data =>{
+      console.log("data",data)
       if(data){
         this.data=data
       }

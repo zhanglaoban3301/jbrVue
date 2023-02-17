@@ -2,10 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Home from '../views/Home.vue';
-import AddCarpet from '../views/carpetInfo/AddCarpet.vue';
-import SellInfo from '../views/carpetInfo/SellInfo.vue';
-import WsSellInfo from '../views/carpetInfo/WsSellInfo.vue';
-import YsSellInfo from '../views/carpetInfo/YsSellInfo.vue';
 import Dp from '../views/Dp'
 
 
@@ -48,19 +44,7 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home,
-    children:[
-      {
-        path: '/home/addCarpet',
-        name: 'AddCarpet',
-        component: AddCarpet,
-      },
-      {
-        path: '/home/sellInfo',
-        name: 'SellInfo',
-        component: SellInfo,
-      }
-    ]
+    component: Home
   }
  
   

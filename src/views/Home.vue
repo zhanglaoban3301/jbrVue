@@ -2,10 +2,10 @@
     <div class="manage_page fillcontain" >
     <el-container>
     <el-header class="HomeHeader">
-        <div class="title">金博尔</div>
+        <div class="title">美林地毯</div>
         <el-dropdown class="userInfo" style="float:right">
             <span class="el-dropdown-link" >
-                {{user.username}}<i><img src="../assets/8.jpg"></i>
+                admin<i><img src="../assets/8.jpg"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>个人中心</el-dropdown-item>
@@ -52,17 +52,32 @@ export default {
     data(){
         return{
             path:'',
-            user:JSON.parse(window.sessionStorage.getItem('user')) ,
+            user:window.sessionStorage.getItem('user') ,
             activeVar:0
         }
     },
     methods:{
         activeFun(item,index){
-        // item 为被选中的元素体
-        console.log("选中了"+index)
-        this.activeVar=index
-   }
+            // item 为被选中的元素体
+            console.log("选中了"+index)
+            this.activeVar=index
+        },
+        async getuser(){
+            await getRequest('/login/getInfo').then(resp=>{
+            console.log("getInfo",resp)
+            if(resp){
+                window.sessionStorage.setItem('user',JSON.stringify(resp));
+            }
+        }).then(()=>{
+            console.log("获取",JSON.parse(window.sessionStorage.getItem('user')))
+            this.user = JSON.parse(window.sessionStorage.getItem('user'))
+        })
+        },
+        async u(){
+            await this.getuser();
+        }
     },
+    
     computed:{
         routes(){
             return this.$store.state.routes;
@@ -79,7 +94,7 @@ export default {
 <style  lang="less" scoped>
     
 	.HomeHeader{
-        background: hsl(220, 59%, 62%);
+        background:linear-gradient(to right, #313653, #fcffff);
         display: flex;
         align-items: center;
     }
@@ -113,7 +128,7 @@ export default {
     position: fixed;
     width: 200px ;
     // min-width: 200px;
-    height: 100vh;
+    
    
     
    }
